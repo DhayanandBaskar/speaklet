@@ -33,6 +33,8 @@ git clone git@github.com-personal:DhayanandBaskar/whisper-bubble.git
 
 ## Install and use
 
+The current installer and checksum are available in the [latest GitHub release](https://github.com/DhayanandBaskar/whisper-bubble/releases/latest). Sign in with the personal account that owns this private repository.
+
 1. Open `build/dist/Whisper-Bubble.dmg`, drag **Whisper Bubble.app** into **Applications**, and launch that copy. Quit and replace the existing app when updating. Keep one installed copy.
 2. If macOS blocks this personal build, use **System Settings → Privacy & Security → Open Anyway**. An ad-hoc signed update may require renewed Accessibility and Keychain approval. Saved preferences and the API key are retained.
 3. Open **Settings** from the bubble's right-click menu or the waveform menu-bar icon. Save your OpenAI API key; it is stored in macOS Keychain.

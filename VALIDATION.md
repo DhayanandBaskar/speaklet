@@ -21,7 +21,8 @@ Build verification checks both arm64 and x86_64, the bundle plist, strict code s
 - The user reported gray suggestion-like text and a stationary cursor in a terminal. Version 1.0.4 routes terminal input through paste, avoids Accessibility display-value replacement, and advances ordinary character-range carets after direct selected-text insertion. The user's particular terminal has not been identified or retested yet.
 - The actual 72 × 26 point control was rendered offscreen in all phases. Default background samples had alpha approximately 0.294–0.298; the outer canvas was transparent. Native desktop blur was not assessed by that capture.
 - The initial native app launch and Settings layout were inspected. Microphone, Accessibility, Input Monitoring, and automatic insertion were enabled in the prior running copy. No key or transcript content was read.
-- ChatGPT and macOS SecurityAgent UI inspection is blocked by the computer-use tool. Those applications were not inspected through another method.
+- The consolidated 1.0.4 app was launched from the existing canonical path. The user approved its existing Keychain access and confirmed the bubble was visible; native inspection then confirmed its idle control.
+- Warp, ChatGPT, and macOS SecurityAgent UI inspection is blocked by the computer-use tool. Those applications were not inspected through another method. The attempted live Warp check could not proceed and remains manual.
 
 ## Manual checks
 
