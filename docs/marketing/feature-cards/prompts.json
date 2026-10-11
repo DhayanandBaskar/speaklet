@@ -1,0 +1,86 @@
+{
+  "tool": "Built-in image_gen",
+  "format": "Landscape 3:2 feature illustrations, based on actual app screens",
+  "cards": [
+    {
+      "app": "speaklet",
+      "id": "01-dictate",
+      "title": "Hold a key. Say it. Keep going.",
+      "caption": "Speaklet’s tiny control and real Settings, presented as a product illustration.",
+      "refs": [
+        "docs/marketing/screenshot-kit/speaklet-settings.jpg",
+        "docs/marketing/feature-cards/references/bubble-preview-poster.png",
+        "docs/marketing/feature-cards/references/speaklet-icon.png"
+      ],
+      "output": "docs/marketing/feature-cards/speaklet-01-dictate.png",
+      "prompt": "Use case: compositing / product-mockup. Asset type: one premium Mac App Store-style feature illustration, landscape 3:2, large crisp bitmap suitable for a product gallery and marketing post. Design a finished commercial artwork, not a wireframe. Visual system: confident Swiss-style sans-serif headline, sharp edges, generous spacing, graphite #151923, warm ivory #f7f5ef, rich cobalt #254dde. A broad simple colored plane and restrained soft shadows give depth; no noisy textures, generic gradients or tiny decorative clutter. Put a small app name at the top, a very large two-to-three-line headline, and a single short supporting line. Make the actual app interface the main visual subject, enlarged with a restrained dimensional tilt or carefully framed close-up. Preserve the reference app’s actual controls, proportions, icon and legible main labels. Use exact screenshot regions as the basis rather than inventing interface. Minor body text may be unobtrusive linework. This is clearly an illustrated product composition, not a raw screenshot.\nCommon constraints: no computer or phone hardware, people, fake reviews, ratings, metrics, awards, prices, Apple logos, App Store badges, extra brand marks or watermarks. No fictional features or controls. Never show a credential. Keep all headline text inside safe margins and spell it exactly. Remove capture cursor and purple sharing overlay. Do not include any private file names.\nInputs: image 1 is the real Settings window; image 2 is the production recording capsule on a dark canvas; image 3 is the actual icon. Use the window as an accurately cropped supporting layer, with the black capsule floating in front. Crop away the API section so the hold shortcut controls are emphasized. The capsule must retain its short pill silhouette, white mic, waveform bars and cancel X; it must not become a giant toolbar. Composition: ivory ground, large black headline on the upper left, blue plane across the lower right behind the app layers. Exact text outside UI: \"Speaklet\"; \"Hold a key.\\nSay it.\\nKeep going.\"; \"Voice to text, with a tiny control.\" Show the actual app icon subtly beside the name. Keep the screenshot and capsule very crisp, mostly front-facing.",
+      "generatedImageId": "exec-23e851ff-6c18-48df-962c-34ab390b6f1c.png",
+      "refinements": [
+        "Edit this artwork. Change only one thing: remove the purple macOS screen-sharing badge from the top-left corner of the Settings window. It is a capture overlay, not part of Speaklet. Restore clean blank pale title-bar background in its place. Keep every other element, text, layout, color, icon, capsule, dimensions and detail exactly unchanged."
+      ]
+    },
+    {
+      "app": "speaklet",
+      "id": "02-shortcut",
+      "title": "Hold. Speak. Release.",
+      "caption": "Hold Fn or Globe to dictate; release to transcribe.",
+      "refs": [
+        "docs/marketing/screenshot-kit/speaklet-settings.jpg",
+        "docs/marketing/feature-cards/references/bubble-preview-poster.png",
+        "docs/marketing/feature-cards/references/speaklet-icon.png"
+      ],
+      "output": "docs/marketing/feature-cards/speaklet-02-shortcut.png",
+      "prompt": "Use case: compositing / product-mockup. Asset type: one premium Mac App Store-style feature illustration, landscape 3:2, large crisp bitmap suitable for a product gallery and marketing post. Design a finished commercial artwork, not a wireframe. Visual system: confident Swiss-style sans-serif headline, sharp edges, generous spacing, graphite #151923, warm ivory #f7f5ef, rich cobalt #254dde. A broad simple colored plane and restrained soft shadows give depth; no noisy textures, generic gradients or tiny decorative clutter. Put a small app name at the top, a very large two-to-three-line headline, and a single short supporting line. Make the actual app interface the main visual subject, enlarged with a restrained dimensional tilt or carefully framed close-up. Preserve the reference app’s actual controls, proportions, icon and legible main labels. Use exact screenshot regions as the basis rather than inventing interface. Minor body text may be unobtrusive linework. This is clearly an illustrated product composition, not a raw screenshot.\nCommon constraints: no computer or phone hardware, people, fake reviews, ratings, metrics, awards, prices, Apple logos, App Store badges, extra brand marks or watermarks. No fictional features or controls. Never show a credential. Keep all headline text inside safe margins and spell it exactly. Remove capture cursor and purple sharing overlay. Do not include any private file names.\nInputs: real Settings, production recording capsule, actual icon. Focus on the real \"Hold Fn / Globe to dictate\" section. Make a refined graphite Fn keycap the large illustrative central object, paired with the actual dark capsule and a clean cropped layer of the shortcut controls. The keycap is a visual metaphor, not a new product button. Cobalt background, ivory headline and quiet subtle lighter-blue depth. Text outside UI, verbatim: \"Speaklet\"; \"Hold.\\nSpeak.\\nRelease.\"; \"Hold Fn or Globe. Release to transcribe.\" Keep the real Fn checkbox and alternative Control + Option + Space visible. Do not invent transcription results or apps.",
+      "generatedImageId": "exec-aefc90da-8bfb-4530-97f3-c64b31c251a4.png",
+      "styleReference": "First overview draft for speaklet, using the same palette, typography and app icon"
+    },
+    {
+      "app": "speaklet",
+      "id": "03-capsule",
+      "title": "Small until you need it.",
+      "caption": "The real idle and recording silhouettes, enlarged for clarity.",
+      "refs": [
+        "docs/marketing/feature-cards/references/speaklet-idle.png",
+        "docs/marketing/feature-cards/references/bubble-preview-poster.png",
+        "docs/marketing/feature-cards/references/speaklet-icon.png"
+      ],
+      "output": "docs/marketing/feature-cards/speaklet-03-capsule.png",
+      "prompt": "Use case: compositing / product-mockup. Asset type: one premium Mac App Store-style feature illustration, landscape 3:2, large crisp bitmap suitable for a product gallery and marketing post. Design a finished commercial artwork, not a wireframe. Visual system: confident Swiss-style sans-serif headline, sharp edges, generous spacing, graphite #151923, warm ivory #f7f5ef, rich cobalt #254dde. A broad simple colored plane and restrained soft shadows give depth; no noisy textures, generic gradients or tiny decorative clutter. Put a small app name at the top, a very large two-to-three-line headline, and a single short supporting line. Make the actual app interface the main visual subject, enlarged with a restrained dimensional tilt or carefully framed close-up. Preserve the reference app’s actual controls, proportions, icon and legible main labels. Use exact screenshot regions as the basis rather than inventing interface. Minor body text may be unobtrusive linework. This is clearly an illustrated product composition, not a raw screenshot.\nCommon constraints: no computer or phone hardware, people, fake reviews, ratings, metrics, awards, prices, Apple logos, App Store badges, extra brand marks or watermarks. No fictional features or controls. Never show a credential. Keep all headline text inside safe margins and spell it exactly. Remove capture cursor and purple sharing overlay. Do not include any private file names.\nInputs: image 1 is the authentic tiny idle capsule with transparent surroundings; image 2 is the actual production recording capsule rendered with sample levels; image 3 actual icon. Illustrate two faithful silhouettes at enlarged display size: the short idle pill and wider recording pill. Their relative widths are 42:88, heights 18:28. Show an elegant subtle dotted motion path between them, without adding controls or distorting them. Charcoal backdrop with subdued cobalt curved planar shape; ivory typography. No screenshot window required. Text outside UI, verbatim: \"Speaklet\"; \"Small until\\nyou need it.\"; \"A quiet capsule. A live waveform when you speak.\"; labels \"Idle\" and \"Recording\". Crisp white waveform and real mic/X in recording only. Preserve restrained tiny-control character despite being enlarged.",
+      "generatedImageId": "exec-02908fc4-16d5-47ad-b586-e79421aa8a01.png",
+      "styleReference": "First overview draft for speaklet, using the same palette, typography and app icon"
+    },
+    {
+      "app": "speaklet",
+      "id": "04-insertion",
+      "title": "Keep your place.",
+      "caption": "Insertion in the original text field where supported, with a copy fallback.",
+      "refs": [
+        "docs/marketing/screenshot-kit/speaklet-controls.jpg",
+        "docs/marketing/feature-cards/references/bubble-preview-poster.png",
+        "docs/marketing/feature-cards/references/speaklet-icon.png"
+      ],
+      "output": "docs/marketing/feature-cards/speaklet-04-insertion.png",
+      "prompt": "Use case: compositing / product-mockup. Asset type: one premium Mac App Store-style feature illustration, landscape 3:2, large crisp bitmap suitable for a product gallery and marketing post. Design a finished commercial artwork, not a wireframe. Visual system: confident Swiss-style sans-serif headline, sharp edges, generous spacing, graphite #151923, warm ivory #f7f5ef, rich cobalt #254dde. A broad simple colored plane and restrained soft shadows give depth; no noisy textures, generic gradients or tiny decorative clutter. Put a small app name at the top, a very large two-to-three-line headline, and a single short supporting line. Make the actual app interface the main visual subject, enlarged with a restrained dimensional tilt or carefully framed close-up. Preserve the reference app’s actual controls, proportions, icon and legible main labels. Use exact screenshot regions as the basis rather than inventing interface. Minor body text may be unobtrusive linework. This is clearly an illustrated product composition, not a raw screenshot.\nCommon constraints: no computer or phone hardware, people, fake reviews, ratings, metrics, awards, prices, Apple logos, App Store badges, extra brand marks or watermarks. No fictional features or controls. Never show a credential. Keep all headline text inside safe margins and spell it exactly. Remove capture cursor and purple sharing overlay. Do not include any private file names.\nInputs: real insertion controls and permissions, production recording capsule, actual icon. Use a large accurate close-up of the checked \"Insert into the original text field\" row and its real explanatory text as a layered interface card. A slim abstract text baseline and blue caret may sit behind it as an editorial metaphor; do not fabricate an editor, browser window or transcript. Ivory backdrop with a cobalt vertical plane on the right. Exact external text: \"Speaklet\"; \"Keep\\nyour place.\"; \"Insert at the cursor, where supported.\"; small supporting line \"Copy the transcript when insertion is unavailable.\" Include the actual short recording capsule as a small foreground detail. No universal compatibility claim and no fabricated permissions.",
+      "generatedImageId": "exec-3469670d-452f-4a26-b153-35a0cc9799ef.png",
+      "styleReference": "First overview draft for speaklet, using the same palette, typography and app icon",
+      "refinements": [
+        "Edit this product illustration. Change only the blue waveform badge in the upper-left Settings title bar: remove it completely and restore plain pale title-bar background there. It is a redesigned capture overlay, not an app control. Keep every other detail, exact text, layout, colors, icon, capsule, caret illustration, labels and dimensions unchanged."
+      ]
+    },
+    {
+      "app": "speaklet",
+      "id": "05-personalize",
+      "title": "Make it yours.",
+      "caption": "Choose the shortcut, language, position and idle darkness in the real Settings.",
+      "refs": [
+        "docs/marketing/screenshot-kit/speaklet-settings.jpg",
+        "docs/marketing/feature-cards/references/speaklet-icon.png"
+      ],
+      "output": "docs/marketing/feature-cards/speaklet-05-personalize.png",
+      "prompt": "Use case: compositing / product-mockup. Asset type: one premium Mac App Store-style feature illustration, landscape 3:2, large crisp bitmap suitable for a product gallery and marketing post. Design a finished commercial artwork, not a wireframe. Visual system: confident Swiss-style sans-serif headline, sharp edges, generous spacing, graphite #151923, warm ivory #f7f5ef, rich cobalt #254dde. A broad simple colored plane and restrained soft shadows give depth; no noisy textures, generic gradients or tiny decorative clutter. Put a small app name at the top, a very large two-to-three-line headline, and a single short supporting line. Make the actual app interface the main visual subject, enlarged with a restrained dimensional tilt or carefully framed close-up. Preserve the reference app’s actual controls, proportions, icon and legible main labels. Use exact screenshot regions as the basis rather than inventing interface. Minor body text may be unobtrusive linework. This is clearly an illustrated product composition, not a raw screenshot.\nCommon constraints: no computer or phone hardware, people, fake reviews, ratings, metrics, awards, prices, Apple logos, App Store badges, extra brand marks or watermarks. No fictional features or controls. Never show a credential. Keep all headline text inside safe margins and spell it exactly. Remove capture cursor and purple sharing overlay. Do not include any private file names.\nInputs: actual Settings and actual icon. Show the accurately reproduced \"Bubble position\", \"Show floating bubble\" and \"Idle bubble darkness\" section large on the right, with a smaller genuine English language selector crop above. This is one clear artwork about personalization, not a busy dashboard. Do not invent any dropdown choices or extra sliders. Cobalt blue backdrop, ivory headline on left, pale actual Mac controls in a gently tilted large panel with crisp text. Exact text outside UI: \"Speaklet\"; \"Make\\nit yours.\"; \"Your shortcut. Your language. Your corner.\" No microphone illustration, no credential or API section.",
+      "generatedImageId": "exec-281a5a24-5f61-4a56-9bac-7ecab1c8dca4.png",
+      "styleReference": "First overview draft for speaklet, using the same palette, typography and app icon"
+    }
+  ],
+  "notes": "Five Speaklet feature illustrations, created with built-in image generation. Original screenshots and production control renders are supplied as references. App source and marketing assets are Apache 2.0."
+}

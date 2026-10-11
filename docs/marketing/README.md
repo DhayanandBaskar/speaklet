@@ -61,11 +61,11 @@ https://dhayanandbaskar.github.io/apps/speaklet/
 - Some fields require the copy fallback. Automatic insertion is not universal.
 - No made-up accuracy, speed, customer-count, or offline claims.
 
-[Download the complete marketing kit](https://github.com/DhayanandBaskar/speaklet/releases/latest/download/Speaklet-Marketing-Kit.zip).
+[Download the complete marketing kit](https://dhayanandbaskar.github.io/apps/assets/Mac-App-Media-Kit-v2.zip).
 
 ## Files
 
-- [Landscape share image](speaklet-social.png) — 1200 × 630, used by the product page’s link preview.
+- [Landscape share image](speaklet-social.png) — 1200 × 630, legacy share layout.
 - [Square share image](speaklet-square.png) — 1080 × 1080, for social posts.
 - [Editable landscape graphic](speaklet-social.svg).
 - [Editable square graphic](speaklet-square.svg).
@@ -87,7 +87,7 @@ https://dhayanandbaskar.github.io/apps/speaklet/
 
 [Actual Settings screenshot](screenshot-kit/speaklet-settings.jpg) and [controls screenshot](screenshot-kit/speaklet-controls.jpg) — unchanged native captures from the installed 1.0.6 build, with the API key field empty. Captures can include the pointer and macOS sharing indicator. [Capsule reference](screenshot-kit/speaklet-capsule.jpg) includes the captured pointer and is supplied as generation provenance.
 
-[Download screenshots, illustrations, prompts, and post copy for Speaklet + Still](https://dhayanandbaskar.github.io/apps/assets/Mac-App-Media-Kit.zip). The media license does not publish or license Still’s app source.
+[Download screenshots, illustrations, prompts, and post copy for Speaklet + Still](https://dhayanandbaskar.github.io/apps/assets/Mac-App-Media-Kit-v2.zip). The media license does not publish or license Still’s app source.
 
 ## Reproduce the native control preview
 
@@ -98,3 +98,15 @@ swift run --scratch-path build/web-preview-renderer WhisperAppearancePreview bui
 ```
 
 This renders the production SwiftUI component with fixture states and audio levels, writes a lossless APNG intermediate, then encodes a compact H.264 clip and PNG poster. It does not record audio, access credentials, touch the clipboard, or ask for app permissions. The website caps the clip at 400 CSS pixels, providing enough source pixels for Retina displays. The older GIF remains available for legacy links.
+
+## Five feature illustrations
+
+A coordinated 1536 × 1024 App Store-style series, made from actual Settings screenshots and the production capsule. The images are illustrations; UI regions are enlarged, cropped and restyled.
+
+1. [Hold a key. Say it. Keep going.](feature-cards/speaklet-01-dictate.png)
+2. [Hold. Speak. Release.](feature-cards/speaklet-02-shortcut.png)
+3. [Small until you need it.](feature-cards/speaklet-03-capsule.png)
+4. [Keep your place.](feature-cards/speaklet-04-insertion.png)
+5. [Make it yours.](feature-cards/speaklet-05-personalize.png)
+
+[Prompts and refinements](feature-cards/prompts.json). [Complete kit with both apps](https://dhayanandbaskar.github.io/apps/assets/Mac-App-Media-Kit-v2.zip).
