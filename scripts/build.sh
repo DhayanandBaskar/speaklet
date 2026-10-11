@@ -10,8 +10,18 @@ if ! security find-certificate -c "$SIGNING_IDENTITY" >/dev/null 2>&1; then
   printf 'Run python3 scripts/setup-signing.py once before building.\n' >&2
   exit 1
 fi
-if pgrep -x WhisperBubble >/dev/null; then
-  printf 'Quit Speaklet before building an update.\n' >&2
+# Only the generated copy is replaced by this script. A separately installed
+# Applications copy can keep running while a release is built.
+generated_app_running() {
+  local app_pid executable
+  while IFS= read -r app_pid; do
+    executable=$(ps -p "$app_pid" -o comm=)
+    if [[ "$executable" == "$PWD/build/dist/"* ]]; then return 0; fi
+  done < <(pgrep -x WhisperBubble || true)
+  return 1
+}
+if generated_app_running; then
+  printf 'Quit the generated Speaklet copy in build/dist before building an update.\n' >&2
   exit 1
 fi
 # Build in a disposable directory. Only one app and installer remain in dist.
@@ -30,6 +40,7 @@ lipo -create build/spm-arm64/arm64-apple-macosx/release/WhisperBubble \
 cp Resources/Info.plist "$APP_BUNDLE/Contents/Info.plist"
 xcrun swift -module-cache-path "$PWD/build/module-cache" scripts/make-icon.swift "$PWD/build"
 cp build/WhisperBubble.icns "$APP_BUNDLE/Contents/Resources/WhisperBubble.icns"
+cp LICENSE NOTICE "$APP_BUNDLE/Contents/Resources/"
 codesign --force --sign "$SIGNING_IDENTITY" --timestamp=none --identifier local.whisperbubble.app --options runtime \
   --entitlements Resources/Entitlements.plist "$APP_BUNDLE"
 codesign --verify --deep --strict --verbose=2 "$APP_BUNDLE"
@@ -39,12 +50,13 @@ mkdir -p "$DMG_STAGE"
 ditto "$APP_BUNDLE" "$DMG_STAGE/Speaklet.app"
 if [ ! -L "$DMG_STAGE/Applications" ]; then ln -s /Applications "$DMG_STAGE/Applications"; fi
 cp Resources/Install.txt "$DMG_STAGE/Read Me.txt"
+cp LICENSE NOTICE "$DMG_STAGE/"
 hdiutil create -volname "Speaklet" -srcfolder "$DMG_STAGE" -ov -format UDZO \
   "$PACKAGE_STAGE/Speaklet.dmg"
 hdiutil verify "$PACKAGE_STAGE/Speaklet.dmg"
 (cd "$PACKAGE_STAGE" && shasum -a 256 Speaklet.dmg > SHA256SUMS.txt)
-if pgrep -x WhisperBubble >/dev/null; then
-  printf 'Speaklet was reopened. Quit it and rerun the build.\n' >&2
+if generated_app_running; then
+  printf 'The generated Speaklet copy was opened. Quit it and rerun the build.\n' >&2
   exit 1
 fi
 if [ -e build/dist/Speaklet.app ]; then

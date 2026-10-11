@@ -23,7 +23,7 @@ python3 scripts/check-signing.py
 bash scripts/build.sh
 ```
 
-Quit Speaklet before building an update. The script compiles Apple silicon and Intel binaries, signs and verifies the universal app, and creates a compressed installer. Every build replaces the same three outputs:
+Quit any generated copy running from `build/dist` before building an update. An installed Applications copy may stay running during the build; quit it before installing the update. The script compiles Apple silicon and Intel binaries, signs and verifies the universal app, and creates a compressed installer. Every build replaces the same three outputs:
 
 - `build/dist/Speaklet.app`
 - `build/dist/Speaklet.dmg`
@@ -39,7 +39,7 @@ git clone git@github.com-personal:DhayanandBaskar/speaklet.git
 
 ## Install and use
 
-The current installer and checksum are available in the [latest GitHub release](https://github.com/DhayanandBaskar/speaklet/releases/latest). Sign in with the personal account that owns this private repository.
+The current installer and checksum are available in the [latest GitHub release](https://github.com/DhayanandBaskar/speaklet/releases/latest). The source and downloads are public. See the [product page and usage guide](https://dhayanandbaskar.github.io/apps/speaklet/).
 
 1. Open `build/dist/Speaklet.dmg`, drag **Speaklet.app** into **Applications**, and launch that copy. Quit and replace the existing app when updating. When upgrading from Whisper Bubble, rename the existing Applications copy to **Speaklet.app** before replacing it. Keep one installed copy.
 2. If macOS blocks this personal build, use **System Settings → Privacy & Security → Open Anyway**. The first transition from an old ad-hoc build to the persistent certificate requires a final approval of the new identity. Later builds reuse the same certificate and designated requirement. Saved preferences and the API key are retained.
@@ -81,3 +81,11 @@ Paste rechecks the captured field and restores the previous clipboard after one 
 `scripts/check-signing.py` verifies that two different binaries keep the same certificate-bound designated requirement, accept each other's identity, and reject a same-identifier ad-hoc executable.
 
 Source is organized into pure rules in `Sources/WhisperCore`, reusable macOS adapters in `Sources/WhisperMacSupport`, and app integration in `Sources/WhisperBubble`. See [VALIDATION.md](VALIDATION.md) for results and manual checks.
+
+## License
+
+Copyright 2026 Dhayanand Baskar. Source, documentation, and bundled marketing assets are licensed under [Apache 2.0](LICENSE). See [NOTICE](NOTICE). API services are governed and billed by their provider.
+
+## Marketing kit
+
+[Launch copy, product descriptions, FAQs, and share images](docs/marketing/README.md) are ready to reuse. The product animation is rendered from the actual app with sample microphone levels.

@@ -6,7 +6,7 @@ Requires macOS 13 or later. Includes Apple silicon and Intel binaries.
    If updating, quit the old app first and replace it. If upgrading from
    Whisper Bubble, rename the Applications copy to Speaklet.app first,
    then replace it. Keep one installed copy. Your saved key and
-   preferences are retained. This is version 1.0.6, with a dark 42 x 18 point
+   preferences are retained. This is version 1.0.7, with a dark 42 x 18 point
    capsule that smoothly expands to 88 x 28 while recording. The thin rim,
    white microphone, and live waveform stay dark in both macOS themes.
    This personal build is locally certificate-signed and is not Apple-notarized. If macOS
@@ -76,3 +76,8 @@ Cancelling an already-sent upload cannot undo processing by OpenAI.
 
 No login item is installed. To remove the app, quit it, remove its saved
 key using Settings > Remove, and move it from Applications to the Trash.
+
+Speaklet is free and open source under the Apache License, Version 2.0.
+See the included LICENSE and NOTICE files.
+Source: https://github.com/DhayanandBaskar/speaklet
+Usage guide: https://dhayanandbaskar.github.io/apps/speaklet/

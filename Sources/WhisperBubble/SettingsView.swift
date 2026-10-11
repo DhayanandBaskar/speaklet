@@ -107,7 +107,7 @@ struct SettingsView: View {
             }
             Divider()
             HStack {
-                Text("Personal edition · 1.0.6").font(.system(size: 10)).foregroundStyle(.tertiary)
+                Text("Open source · Apache 2.0 · 1.0.7").font(.system(size: 10)).foregroundStyle(.tertiary)
                 Spacer()
                 Text("Click to start / stop · Esc to cancel · 2 min limit").font(.system(size: 10)).foregroundStyle(.secondary)
             }.padding(.horizontal, 24).padding(.vertical, 12)

@@ -15,9 +15,9 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.0.6</string>
+	<string>1.0.7</string>
 	<key>CFBundleVersion</key>
-	<string>7</string>
+	<string>8</string>
 	<key>LSMinimumSystemVersion</key>
 	<string>13.0</string>
 	<key>LSUIElement</key>
@@ -25,7 +25,7 @@
 	<key>NSHighResolutionCapable</key>
 	<true/>
 	<key>NSHumanReadableCopyright</key>
-	<string>Speaklet — personal edition</string>
+	<string>Copyright 2026 Dhayanand Baskar. Apache License 2.0.</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Speaklet records your voice while you dictate and sends the recording to OpenAI to turn it into text.</string>
 </dict>

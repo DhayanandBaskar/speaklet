@@ -33,6 +33,15 @@ Build verification checks both arm64 and x86_64, the bundle plist, strict code s
 - The consolidated 1.0.4 app was launched from the existing canonical path. The user approved its existing Keychain access and confirmed the bubble was visible; native inspection then confirmed its idle control.
 - Warp, ChatGPT, and macOS SecurityAgent UI inspection is blocked by the computer-use tool. Those applications were not inspected through another method. The attempted live Warp check could not proceed and remains manual.
 
+## Public release 1.0.7
+
+- Core fixtures: 38 cases, 151 assertions; native Accessibility fixtures: 8; private clipboard fixtures: 9. All passed.
+- Persistent-signing checks: 3 passed. The new release’s designated requirement exactly matches the installed Speaklet 1.0.6 requirement.
+- Both architectures compiled, strict signing and plist checks passed, and the DMG and SHA-256 checksum verified.
+- LICENSE and NOTICE were compared byte-for-byte with the source at both the disk-image root and inside the mounted app bundle.
+- This release adds Apache 2.0 licensing and a marketing kit. The build script permits an installed Applications copy to keep running, while protecting a generated copy in build/dist from replacement.
+- The installed app remains 1.0.6 on this Mac; 1.0.7 was packaged for the public release. No privacy settings or saved credentials were changed.
+
 ## Manual checks
 
 These require the user's hardware, permissions, API account, or chosen target app:
