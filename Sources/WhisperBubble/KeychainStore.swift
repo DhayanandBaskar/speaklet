@@ -1,7 +1,10 @@
 import Foundation
 import Security
+import LocalAuthentication
+import WhisperCore
 
-enum KeychainStore {
+@MainActor enum KeychainStore {
+    private static let cache = CredentialCache()
     private static let service = "local.whisperbubble.api-key"
     private static let account = "openai"
     private static var query: [String: Any] {
@@ -10,6 +13,26 @@ enum KeychainStore {
     }
 
     static func read() throws -> String? {
+        try cache.read(using: readStoredKey)
+    }
+
+    static func isSaved() throws -> Bool {
+        // Status needs only unencrypted metadata, never the secret. Forbid UI
+        // during this check so startup and Settings cannot request key approval.
+        var request = query
+        let context = LAContext()
+        context.interactionNotAllowed = true
+        request[kSecUseAuthenticationContext as String] = context
+        request[kSecReturnAttributes as String] = true
+        request[kSecMatchLimit as String] = kSecMatchLimitOne
+        var attributes: CFTypeRef?
+        let status = SecItemCopyMatching(request as CFDictionary, &attributes)
+        if status == errSecItemNotFound { return false }
+        guard status == errSecSuccess else { throw KeychainError(status) }
+        return true
+    }
+
+    private static func readStoredKey() throws -> String? {
         var request = query
         request[kSecReturnData as String] = true
         request[kSecMatchLimit as String] = kSecMatchLimitOne
@@ -33,12 +56,16 @@ enum KeychainStore {
             let addStatus = SecItemAdd(item as CFDictionary, nil)
             guard addStatus == errSecSuccess else { throw KeychainError(addStatus) }
         } else if status != errSecSuccess { throw KeychainError(status) }
+        cache.store(key)
     }
 
     static func delete() throws {
         let status = SecItemDelete(query as CFDictionary)
         guard status == errSecSuccess || status == errSecItemNotFound else { throw KeychainError(status) }
+        cache.store(nil)
     }
+
+    static func clearCache() { cache.clear() }
 }
 
 private struct KeychainError: LocalizedError {

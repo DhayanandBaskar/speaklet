@@ -2,3 +2,5 @@ build/
 .build/
 .swiftpm/
 .DS_Store
+__pycache__/
+*.pyc

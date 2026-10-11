@@ -79,12 +79,12 @@ struct SettingsView: View {
                         }
                         Toggle("Show floating bubble", isOn: $preferences.bubbleVisible)
                         HStack {
-                            Text("Bubble background")
+                            Text("Idle bubble darkness")
                             Spacer()
-                            Text("Clearer").font(.system(size: 10)).foregroundStyle(.secondary)
+                            Text("Lighter").font(.system(size: 10)).foregroundStyle(.secondary)
                             Slider(value: $preferences.bubbleOpacity, in: 0.08...0.6)
-                                .frame(width: 140).accessibilityLabel("Bubble background opacity")
-                            Text("Frosted").font(.system(size: 10)).foregroundStyle(.secondary)
+                                .frame(width: 140).accessibilityLabel("Idle bubble darkness")
+                            Text("Darker").font(.system(size: 10)).foregroundStyle(.secondary)
                         }
                         Toggle("Insert into the original text field", isOn: $preferences.automaticInsertion)
                         Toggle("Use clipboard paste for terminals and compatible editors", isOn: $preferences.pasteFallback)
@@ -95,16 +95,19 @@ struct SettingsView: View {
                     group("Mac permissions", icon: "hand.raised") {
                         permission("Microphone", detail: "Record your voice", granted: controller.microphoneGranted, action: controller.requestMicrophone)
                         permission("Accessibility", detail: "Insert text into the focused field", granted: controller.accessibilityGranted, action: controller.requestAccessibility)
-                        permission("Input Monitoring", detail: "Detect Fn and the fallback shortcut globally", granted: controller.keyboardGranted && controller.shortcutRunning, action: controller.requestKeyboard)
-                        Text("Enable Whisper Bubble in Privacy & Security. If macOS asks, quit and reopen the app after granting access. Click dictation and copying work without keyboard or Accessibility access.")
+                        permission("Input Monitoring", detail: "Detect Fn and the fallback shortcut globally", granted: controller.keyboardGranted, action: controller.requestKeyboard)
+                        if controller.keyboardGranted && !controller.shortcutRunning {
+                            Text("Input Monitoring is allowed, but the keyboard listener could not start. Quit and reopen Whisper Bubble. You can still click the bubble to dictate.")
+                                .font(.system(size: 11)).foregroundStyle(.orange).fixedSize(horizontal: false, vertical: true)
+                        }
+                        Text("Access is checked automatically. If System Settings shows access is enabled but this copy cannot use it, quit and reopen Whisper Bubble. An entry from an older install may need to be replaced once.")
                             .font(.system(size: 11)).foregroundStyle(.secondary).fixedSize(horizontal: false, vertical: true)
-                        Button("Refresh permissions", action: controller.refreshPermissions).buttonStyle(.link).font(.system(size: 11))
                     }
                 }.padding(24)
             }
             Divider()
             HStack {
-                Text("Personal edition · 1.0.4").font(.system(size: 10)).foregroundStyle(.tertiary)
+                Text("Personal edition · 1.0.5").font(.system(size: 10)).foregroundStyle(.tertiary)
                 Spacer()
                 Text("Click to start / stop · Esc to cancel · 2 min limit").font(.system(size: 10)).foregroundStyle(.secondary)
             }.padding(.horizontal, 24).padding(.vertical, 12)
@@ -129,7 +132,7 @@ struct SettingsView: View {
                 Text(detail).font(.system(size: 11)).foregroundStyle(.secondary)
             }
             Spacer()
-            Button(granted ? "Manage" : "Enable", action: action).controlSize(.small)
+            Button(granted ? "Manage" : "Open Settings", action: action).controlSize(.small)
         }
     }
 }

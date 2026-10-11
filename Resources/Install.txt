@@ -4,15 +4,18 @@ Requires macOS 13 or later. Includes Apple silicon and Intel binaries.
 
 1. Drag Whisper Bubble.app to Applications, then open it from Applications.
    If updating, quit the old app first and replace it. Your saved key and
-   preferences are retained. This is version 1.0.4, with a fixed 72 x 26 point
-   translucent pill. It stays that size while recording and on errors.
-   This personal build is ad-hoc signed and is not Apple-notarized. If macOS
+   preferences are retained. This is version 1.0.5, with a dark 42 x 18 point
+   capsule that smoothly expands to 88 x 28 while recording. The thin rim,
+   white microphone, and live waveform stay dark in both macOS themes.
+   This personal build is locally certificate-signed and is not Apple-notarized. If macOS
    blocks it, open System Settings > Privacy & Security and choose Open Anyway
    for this app, then confirm Open. On versions that allow it, Finder's
    right-click > Open also works. No Gatekeeper changes are required.
-   An ad-hoc signed update has a new signing hash. macOS may require you to
-   enable Accessibility for the updated copy and approve its access to your
-   existing Keychain key. Your stored key and preference data are not deleted.
+   The transition from older ad-hoc builds requires one final permission
+   approval for the new certificate identity. Later updates reuse that same
+   identity. If the old Accessibility row stays enabled but insertion is
+   unavailable, remove the old row and add this installed copy once.
+   Your stored key and preference data are not deleted.
 
 2. Open Settings from the waveform icon in the menu bar. Enter your own
    OpenAI API key and click Save. The key is stored in macOS Keychain.
@@ -38,7 +41,7 @@ Requires macOS 13 or later. Includes Apple silicon and Intel binaries.
    X cancels a recording or pending request. Recording stops at two minutes.
 
 Move the bubble using Settings > Bubble position. Use the menu to hide it.
-Adjust its transparency using Settings > Bubble background. Hover for
+Adjust its idle darkness using Settings > Idle bubble darkness. Hover for
 status or right-click > Dictation status for details; errors no longer
 expand the bubble automatically.
 

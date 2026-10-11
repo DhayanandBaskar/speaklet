@@ -6,15 +6,23 @@ public enum PillState: Equatable {
     var busy: Bool { self == .preparing || self == .recording || self == .transcribing }
 }
 
-/// The same compact dimensions are used in every state, including errors.
 public struct DictationPill: View {
-    public static let size = NSSize(width: 72, height: 26)
+    public static let maximumSize = NSSize(width: 88, height: 28)
+    public static func size(for state: PillState) -> NSSize {
+        switch state {
+        case .recording: return maximumSize
+        case .preparing, .transcribing: return NSSize(width: 68, height: 24)
+        default: return NSSize(width: 42, height: 18)
+        }
+    }
+
     private let state: PillState
     private let levels: [Float]
     private let opacity: Double
     private let action: () -> Void
     private let cancel: () -> Void
-    @Environment(\.colorScheme) private var colorScheme
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @Environment(\.accessibilityReduceTransparency) private var reduceTransparency
     @State private var hovering = false
 
     public init(state: PillState, levels: [Float] = [], opacity: Double = 0.22,
@@ -26,83 +34,115 @@ public struct DictationPill: View {
         self.cancel = cancel
     }
 
+    private var size: NSSize { Self.size(for: state) }
+    private var darkness: Double {
+        if reduceTransparency { return 1 }
+        return state.busy ? 0.95 : 0.60 + max(0.08, min(0.6, opacity)) * 0.30 + (hovering ? 0.04 : 0)
+    }
+
     public var body: some View {
-        HStack(spacing: 4) {
+        HStack(spacing: 6) {
             Button(action: action) {
-                HStack(spacing: 5) {
-                    if state == .recording {
-                        Circle().fill(Color.red.opacity(0.9)).frame(width: 4, height: 4)
-                        waveform
-                    } else if state == .preparing || state == .transcribing {
-                        ProgressView().controlSize(.mini).scaleEffect(0.62)
-                            .frame(width: 12, height: 12)
-                    } else if state == .success {
-                        Image(systemName: "checkmark").font(.system(size: 10, weight: .semibold))
-                    } else {
-                        Image(systemName: "waveform").font(.system(size: 12, weight: .medium))
-                        if state == .error {
-                            Circle().fill(Color.orange).frame(width: 4, height: 4)
-                        } else if state == .ready {
-                            Circle().fill(Color.accentColor).frame(width: 3, height: 3)
-                        }
-                    }
-                }
-                .frame(maxWidth: .infinity, minHeight: 26)
-                .contentShape(Rectangle())
+                content
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .contentShape(Capsule())
             }
             .buttonStyle(.plain)
             .disabled(state == .transcribing)
             .accessibilityLabel(state == .recording ? "Stop and transcribe" : "Start dictation")
             if state.busy {
                 Button(action: cancel) {
-                    Image(systemName: "xmark").font(.system(size: 7, weight: .semibold))
-                        .frame(width: 12, height: 26).contentShape(Rectangle())
+                    Image(systemName: "xmark")
+                        .font(.system(size: 6.5, weight: .semibold))
+                        .foregroundStyle(.white.opacity(hovering ? 0.8 : 0.48))
+                        .frame(width: 10, height: size.height)
+                        .contentShape(Rectangle())
                 }
                 .buttonStyle(.plain)
                 .accessibilityLabel("Cancel dictation").help("Cancel · Escape")
+                .transition(.opacity.combined(with: .scale(scale: 0.8)))
             }
         }
-        .foregroundStyle(Color.primary.opacity(hovering ? 0.95 : 0.78))
-        .padding(.horizontal, 9)
-        .frame(width: Self.size.width, height: Self.size.height)
+        .foregroundStyle(.white.opacity(state.busy || hovering ? 0.95 : 0.72))
+        .padding(.horizontal, state.busy ? 11 : 10)
+        .frame(width: size.width, height: size.height)
         .background {
-            // Light native blur and a slight tint let the desktop show through.
-            LightFrost(opacity: opacity).clipShape(Capsule())
-            Capsule().fill((colorScheme == .dark ? Color.black : Color.white)
-                .opacity(opacity * 0.34 + (hovering ? 0.04 : 0)))
+            if !reduceTransparency { DarkFrost().clipShape(Capsule()) }
+            Capsule().fill(Color.black.opacity(darkness))
         }
         .overlay {
             Capsule().strokeBorder(
-                LinearGradient(colors: [.white.opacity(hovering ? 0.4 : 0.26),
-                                        .white.opacity(0.06), .black.opacity(0.1)],
-                               startPoint: .topLeading, endPoint: .bottomTrailing), lineWidth: 0.65)
+                LinearGradient(colors: [.white.opacity(state.busy ? 0.19 : 0.14), .white.opacity(0.025)],
+                               startPoint: .top, endPoint: .bottom), lineWidth: 0.35)
         }
-        .shadow(color: .black.opacity(0.13), radius: 4, x: 0, y: 2)
+        .shadow(color: .black.opacity(state.busy ? 0.24 : 0.16), radius: state.busy ? 5 : 3, x: 0, y: 2)
+        .animation(reduceMotion ? nil : .spring(response: 0.28, dampingFraction: 0.84), value: state)
+        .animation(reduceMotion ? nil : .easeOut(duration: 0.14), value: hovering)
         .onHover { hovering = $0 }
+    }
+
+    @ViewBuilder private var content: some View {
+        if state == .recording {
+            HStack(spacing: 6) {
+                Image(systemName: "mic.fill").font(.system(size: 10, weight: .medium))
+                waveform
+            }.transition(.opacity.combined(with: .scale(scale: 0.88)))
+        } else if state == .preparing || state == .transcribing {
+            ProcessingDots(animate: !reduceMotion)
+                .frame(width: 20, height: 12)
+                .transition(.opacity)
+        } else {
+            Image(systemName: state == .success ? "checkmark" : "waveform")
+                .font(.system(size: state == .success ? 8 : 10, weight: .medium))
+                .overlay(alignment: .topTrailing) {
+                    if state == .error {
+                        Circle().fill(Color(red: 1, green: 0.62, blue: 0.28))
+                            .frame(width: 2.5, height: 2.5).offset(x: 4, y: -1)
+                    }
+                }
+                .transition(.opacity)
+        }
     }
 
     private var waveform: some View {
         HStack(spacing: 1.4) {
-            ForEach(0..<8, id: \.self) { index in
-                let level = levels.isEmpty ? Float(0.08) : levels[min(index * levels.count / 8, levels.count - 1)]
-                Capsule().fill(Color.primary.opacity(0.78))
-                    .frame(width: 1.5, height: max(2, min(13, CGFloat(level) * 13)))
+            ForEach(0..<9, id: \.self) { index in
+                let level = levels.isEmpty ? Float(0.04) : levels[min(index * levels.count / 9, levels.count - 1)]
+                Capsule().fill(.white.opacity(0.9))
+                    .frame(width: 1.5, height: max(2, min(14, CGFloat(level) * 14)))
             }
-        }.frame(width: 22, height: 14)
+        }
+        .frame(width: 26, height: 14)
+        .animation(reduceMotion ? nil : .easeOut(duration: 0.09), value: levels)
     }
 }
 
-private struct LightFrost: NSViewRepresentable {
-    var opacity: Double
+private struct ProcessingDots: View {
+    let animate: Bool
+    var body: some View {
+        TimelineView(.animation(minimumInterval: 1.0 / 20, paused: !animate)) { context in
+            let time = context.date.timeIntervalSinceReferenceDate
+            HStack(spacing: 3) {
+                ForEach(0..<3, id: \.self) { index in
+                    let pulse = animate ? (sin(time * 5 - Double(index) * 0.9) + 1) / 2 : 0.5
+                    Circle().fill(.white.opacity(0.3 + pulse * 0.6)).frame(width: 3, height: 3)
+                        .offset(y: animate ? -pulse * 1.5 : 0)
+                }
+            }
+        }
+    }
+}
+
+private struct DarkFrost: NSViewRepresentable {
     func makeNSView(context: Context) -> NSVisualEffectView {
         let view = NSVisualEffectView()
-        view.material = .underWindowBackground
+        view.material = .hudWindow
         view.blendingMode = .behindWindow
         view.state = .active
+        view.appearance = NSAppearance(named: .darkAqua)
         view.isEmphasized = false
+        view.alphaValue = 0.24
         return view
     }
-    func updateNSView(_ view: NSVisualEffectView, context: Context) {
-        view.alphaValue = max(0.08, min(0.6, opacity))
-    }
+    func updateNSView(_ view: NSVisualEffectView, context: Context) {}
 }

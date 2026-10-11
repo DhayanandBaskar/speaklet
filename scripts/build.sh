@@ -4,6 +4,11 @@ cd "$(dirname "$0")/.."
 mkdir -p build/module-cache build/dist
 export CLANG_MODULE_CACHE_PATH="$PWD/build/module-cache"
 export SWIFTPM_MODULECACHE_OVERRIDE="$PWD/build/module-cache"
+SIGNING_IDENTITY="${WHISPER_SIGNING_IDENTITY:-Whisper Bubble Personal Signing}"
+if ! security find-certificate -c "$SIGNING_IDENTITY" >/dev/null 2>&1; then
+  printf 'Run python3 scripts/setup-signing.py once before building.\n' >&2
+  exit 1
+fi
 if pgrep -x WhisperBubble >/dev/null; then
   printf 'Quit Whisper Bubble before building an update.\n' >&2
   exit 1
@@ -24,7 +29,7 @@ lipo -create build/spm-arm64/arm64-apple-macosx/release/WhisperBubble \
 cp Resources/Info.plist "$APP_BUNDLE/Contents/Info.plist"
 xcrun swift -module-cache-path "$PWD/build/module-cache" scripts/make-icon.swift "$PWD/build"
 cp build/WhisperBubble.icns "$APP_BUNDLE/Contents/Resources/WhisperBubble.icns"
-codesign --force --sign - --identifier local.whisperbubble.app --options runtime \
+codesign --force --sign "$SIGNING_IDENTITY" --timestamp=none --identifier local.whisperbubble.app --options runtime \
   --entitlements Resources/Entitlements.plist "$APP_BUNDLE"
 codesign --verify --deep --strict --verbose=2 "$APP_BUNDLE"
 plutil -lint "$APP_BUNDLE/Contents/Info.plist"

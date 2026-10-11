@@ -90,6 +90,7 @@ import WhisperCore
 
     func shutdown() {
         cancel()
+        KeychainStore.clearCache()
         permissionTimer?.invalidate()
         shortcut.stop()
         if let workspaceObserver { NSWorkspace.shared.notificationCenter.removeObserver(workspaceObserver) }
@@ -324,7 +325,7 @@ import WhisperCore
         if accessibilityGranted { TextInsertion.prepareFocusedApplication() }
         keyboardGranted = CGPreflightListenEventAccess()
         if keyboardGranted { shortcutRunning = shortcut.start() }
-        else if shortcut.running {
+        else {
             shortcut.stop()
             shortcutRunning = false
             if phase == .recording || phase == .preparing { cancel() }
@@ -349,7 +350,7 @@ import WhisperCore
     }
 
     func refreshKey() {
-        do { keySaved = !(try KeychainStore.read() ?? "").isEmpty; keychainNotice = "" }
+        do { keySaved = try KeychainStore.isSaved(); keychainNotice = "" }
         catch { keySaved = false; keychainNotice = error.localizedDescription }
     }
     func saveKey(_ key: String) -> Bool {

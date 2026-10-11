@@ -8,7 +8,7 @@ import WhisperMacSupport
     private var screenObserver: NSObjectProtocol?
     private var location: BubbleLocation = .bottomCenter
     private let feedback = NSPopover()
-    private static let panelSize = NSSize(width: 96, height: 50)
+    private static let panelSize = NSSize(width: 112, height: 52)
 
     init(controller: AppController) {
         self.controller = controller

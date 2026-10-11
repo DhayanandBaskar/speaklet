@@ -2,18 +2,22 @@
 
 A native macOS dictation app with a small translucent floating control. Hold Fn/Globe, speak, and release to transcribe into the focused text field. You can also click the bubble to start and stop. The waveform follows the microphone's actual audio level.
 
-The pill stays **72 × 26 points** while idle, recording, transcribing, or showing an error. Settings controls its position and transparency; hover or right-click for status.
+The dark capsule rests at **42 × 18 points** and smoothly expands to **88 × 28** while recording. A fine rim, white microphone, and live waveform replace the frosted gray control. Processing uses animated dots, then the capsule shrinks back. It stays dark in both macOS themes and respects Reduce Motion and Reduce Transparency. Settings controls its position and idle darkness; hover or right-click for status.
 
-Requires macOS 13 or later and an OpenAI API key with API billing enabled. ChatGPT subscriptions do not include API usage. This personal build is ad-hoc signed and is not notarized.
+![Bubble animation rendered from the production view with fixture audio levels](docs/bubble-preview.gif)
+
+Requires macOS 13 or later and an OpenAI API key with API billing enabled. ChatGPT subscriptions do not include API usage. This personal build uses a persistent local signing certificate and is not notarized.
 
 ## Build
 
-Apple's Command Line Tools provide the required Swift toolchain and macOS SDK. There are no third-party dependencies.
+Apple's Command Line Tools provide the required Swift toolchain and macOS SDK. There are no third-party runtime dependencies. OpenSSL and Python 3 are used for the one-time local signing setup. Setup reuses an existing certificate instead of creating a new identity on each build.
 
 ```sh
 git clone git@github.com:DhayanandBaskar/whisper-bubble.git
 cd whisper-bubble
+python3 scripts/setup-signing.py # one-time local signing identity
 bash scripts/test.sh
+python3 scripts/check-signing.py
 bash scripts/build.sh
 ```
 
@@ -36,12 +40,14 @@ git clone git@github.com-personal:DhayanandBaskar/whisper-bubble.git
 The current installer and checksum are available in the [latest GitHub release](https://github.com/DhayanandBaskar/whisper-bubble/releases/latest). Sign in with the personal account that owns this private repository.
 
 1. Open `build/dist/Whisper-Bubble.dmg`, drag **Whisper Bubble.app** into **Applications**, and launch that copy. Quit and replace the existing app when updating. Keep one installed copy.
-2. If macOS blocks this personal build, use **System Settings → Privacy & Security → Open Anyway**. An ad-hoc signed update may require renewed Accessibility and Keychain approval. Saved preferences and the API key are retained.
+2. If macOS blocks this personal build, use **System Settings → Privacy & Security → Open Anyway**. The first transition from an old ad-hoc build to the persistent certificate requires a final approval of the new identity. Later builds reuse the same certificate and designated requirement. Saved preferences and the API key are retained.
 3. Open **Settings** from the bubble's right-click menu or the waveform menu-bar icon. Save your OpenAI API key; it is stored in macOS Keychain.
 4. Enable **Microphone**, **Accessibility**, and **Input Monitoring** using the app's permission guidance. Enable the installed copy, then quit and reopen if macOS requests it.
 5. Focus the text field where you want to write. Hold Fn/Globe and release after speaking, or use **Control + Option + Space**. Settings offers alternate shortcuts. If macOS reserves Fn for another action, set its Keyboard preference to **Do Nothing** or use the fallback shortcut.
 
 The bubble preserves the other app's focus. Escape cancels recording or a pending request; recordings stop after two minutes. **Latest Transcript** and **Copy Latest Transcript** remain available until cleared or the app quits.
+
+Access is checked automatically every two seconds and whenever Settings opens. Input Monitoring permission and keyboard-listener availability are reported separately. If an old entry stays enabled while this installed copy reports no access, replace only the Whisper Bubble entry in Accessibility and Input Monitoring with `/Applications/Whisper Bubble.app`, then reopen the app. This is needed once when moving from the old ad-hoc identity to the persistent certificate.
 
 To check insertion without recording or API usage, focus a disposable text field and choose **Test Text Insertion** from the bubble's right-click menu. This inserts `Whisper Bubble test.` and replaces any selected text.
 
@@ -57,7 +63,8 @@ Paste rechecks the captured field and restores the previous clipboard after one 
 
 ## Privacy
 
-- The API key is kept in Keychain, never in source or preferences.
+- The API key is kept in Keychain, never in source or preferences. Startup and Settings check only its metadata with authentication UI disabled. The first dictation reads the secret; subsequent use reuses it in memory until the app quits. Successful replacement/removal updates that cache; denied reads remain retryable.
+- A persistent local signing identity binds this app to its certificate and identifier instead of a changing binary hash. The private signing key stays in the login Keychain and is never committed or uploaded. Setup allows the Apple codesign tool to use it; it does not change system trust. Builds fail rather than silently falling back to ad-hoc signing. [Apple explains designated requirements and local certificates](https://developer.apple.com/library/archive/technotes/tn2206/).
 - Completed recordings are sent over HTTPS to OpenAI's transcription endpoint. The default model is `gpt-4o-mini-transcribe`; Settings also offers `gpt-4o-transcribe` and `whisper-1`.
 - Redirects are refused, network sessions are ephemeral, and keys, audio, API responses, and transcripts are not logged.
 - Private temporary recordings are deleted after completion or cancellation. Forced termination can leave a private temporary folder for macOS to clean up. Transcripts are kept only in memory.
@@ -67,5 +74,7 @@ Paste rechecks the captured field and restores the previous clipboard after one 
 ## Validation
 
 `scripts/test.sh` checks lifecycle and shortcuts, focus and cursor safeguards, terminal routing, Unicode, transcription request/response handling, and cancellation using fixtures. Native checks decode actual Accessibility value objects and test clipboard restoration using a private named pasteboard. They do not read another app, touch the user's clipboard, use the microphone, or contact OpenAI.
+
+`scripts/check-signing.py` verifies that two different binaries keep the same certificate-bound designated requirement, accept each other's identity, and reject a same-identifier ad-hoc executable.
 
 Source is organized into pure rules in `Sources/WhisperCore`, reusable macOS adapters in `Sources/WhisperMacSupport`, and app integration in `Sources/WhisperBubble`. See [VALIDATION.md](VALIDATION.md) for results and manual checks.

@@ -1,13 +1,16 @@
 # Validation
 
-Current version: **1.0.4**, 11 October 2026.
+Current version: **1.0.5**, 11 October 2026.
 
 ## Automated checks
 
-- **36 core cases, 140 assertions, zero failures.**
+- **38 core cases, 151 assertions, zero failures.**
 - **8 native Accessibility-value checks, zero failures.**
 - **9 native clipboard checks, zero failures.** The user's clipboard was untouched.
+- **3 signing identity checks, zero failures.** Different binaries retained the same certificate-bound designated requirement, satisfied each other's requirement, and rejected a same-identifier ad-hoc executable.
 - Universal arm64/x86_64 release compilation, strict signature verification, plist validation, compressed DMG verification, and SHA-256 verification passed.
+
+The credential cache checks verify one read across repeated uses, a fresh read after clearing, retry after denial, replacement, and removal without stale credentials. No real credential was read.
 
 The core runner covers recording lifecycle, stale/cancelled callbacks, overlapping inputs, Fn and fallback shortcuts, silent/short audio, secure fields, focus departure and return, changed text/app/cursor rejection, native-marker selection rules, Unicode ranges, terminal paste routing, control-character handling, multipart requests, mocked API responses, and pending request cancellation.
 
@@ -18,8 +21,11 @@ Build verification checks both arm64 and x86_64, the bundle plist, strict code s
 ## Observed behavior and limits
 
 - The user reported successful transcription after adding API credits, insertion in Chrome's address bar, and subsequently working insertion in ChatGPT.
-- The user reported gray suggestion-like text and a stationary cursor in a terminal. Version 1.0.4 routes terminal input through paste, avoids Accessibility display-value replacement, and advances ordinary character-range carets after direct selected-text insertion. The user's particular terminal has not been identified or retested yet.
-- The actual 72 × 26 point control was rendered offscreen in all phases. Default background samples had alpha approximately 0.294–0.298; the outer canvas was transparent. Native desktop blur was not assessed by that capture.
+- The user reported gray suggestion-like text and a stationary cursor in a terminal. Version 1.0.4 routes terminal input through paste, avoids Accessibility display-value replacement, and advances ordinary character-range carets after direct selected-text insertion. The user identified Warp or an integrated terminal; live Warp verification is blocked by the computer-use tool and remains manual.
+- The production control was rendered in idle, recording, processing, and error states in both light and dark themes. Idle is 42 × 18 points; recording is 88 × 28. A 108-frame sequence captured real SwiftUI transitions with fixture meter values, including 17 distinct capsule widths from 42 to 88 points. Sample background pixels were RGBA (9, 9, 9, 194) idle and (1, 1, 1, 247) recording; the outer canvas is transparent. Native desktop blur remains a separate live check.
+- The redesigned 1.0.5 control was launched and visually inspected. Startup and Settings opened without a secret-key prompt; Settings correctly reported the existing key using metadata alone. The app reported the old build’s privacy approvals as unavailable, matching the ad-hoc identity issue.
+- The final certificate-signed 1.0.5 app was installed and launched from `/Applications/Whisper Bubble.app`. Its signature and universal architectures were verified. Startup and Settings again opened without reading the saved secret. Microphone access was retained; the installed app reported Accessibility and Input Monitoring unavailable while System Settings still showed the old enabled Accessibility entry. Replacing these stale entries for the final installed identity remains a one-time migration check.
+- The installed Settings view has no redundant Refresh permissions button. Permission checks run automatically every two seconds; a failed keyboard listener is no longer displayed as denied Input Monitoring.
 - The initial native app launch and Settings layout were inspected. Microphone, Accessibility, Input Monitoring, and automatic insertion were enabled in the prior running copy. No key or transcript content was read.
 - The consolidated 1.0.4 app was launched from the existing canonical path. The user approved its existing Keychain access and confirmed the bubble was visible; native inspection then confirmed its idle control.
 - Warp, ChatGPT, and macOS SecurityAgent UI inspection is blocked by the computer-use tool. Those applications were not inspected through another method. The attempted live Warp check could not proceed and remains manual.
@@ -34,4 +40,4 @@ These require the user's hardware, permissions, API account, or chosen target ap
 4. Cross-app focus changes during transcription, custom editors with limited Accessibility support, and secure fields.
 5. Intel execution and the minimum supported macOS 13 system. Both architectures compile; local execution is on Apple silicon.
 
-The app is ad-hoc signed and not notarized. Replacing its binary may require macOS to approve the updated app's Accessibility and existing Keychain access again.
+The app is signed with a persistent local certificate and is not notarized. The one-time transition from the old ad-hoc identity still requires macOS consent for the new identity. Future builds reuse the same certificate; the private key is kept in the login Keychain, outside the repository.
