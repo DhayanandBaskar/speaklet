@@ -4,7 +4,9 @@ A native macOS dictation app with a small translucent floating control. Hold Fn/
 
 The dark capsule rests at **42 × 18 points** and smoothly expands to **88 × 28** while recording. A fine rim, white microphone, and live waveform replace the frosted gray control. Processing uses animated dots, then the capsule shrinks back. It stays dark in both macOS themes and respects Reduce Motion and Reduce Transparency. Settings controls its position and idle darkness; hover or right-click for status.
 
-![Bubble animation rendered from the production view with fixture audio levels](docs/bubble-preview.gif)
+![Production control rendered at Retina resolution with fixture microphone levels](docs/bubble-preview-poster.png)
+
+[Watch the animated preview](https://dhayanandbaskar.github.io/apps/speaklet/) · [Download the silent preview video](docs/bubble-preview-retina.mp4).
 
 Requires macOS 13 or later and an OpenAI API key with API billing enabled. ChatGPT subscriptions do not include API usage. This personal build uses a persistent local signing certificate and is not notarized.
 

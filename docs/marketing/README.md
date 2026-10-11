@@ -70,7 +70,8 @@ https://dhayanandbaskar.github.io/apps/speaklet/
 - [Editable landscape graphic](speaklet-social.svg).
 - [Editable square graphic](speaklet-square.svg).
 - [App icon](speaklet-icon.png) — 256 × 256.
-- [Actual control animation](../bubble-preview.gif) — sample microphone levels.
+- [Retina control animation](../bubble-preview-retina.mp4) — 1280 × 560, six seconds at 30 fps, silent, with sample microphone levels.
+- [Static preview](../bubble-preview-poster.png) — 1280 × 560, used for reduced motion.
 
 ## Links
 
@@ -87,3 +88,13 @@ https://dhayanandbaskar.github.io/apps/speaklet/
 [Actual Settings screenshot](screenshot-kit/speaklet-settings.jpg) and [controls screenshot](screenshot-kit/speaklet-controls.jpg) — unchanged native captures from the installed 1.0.6 build, with the API key field empty. Captures can include the pointer and macOS sharing indicator. [Capsule reference](screenshot-kit/speaklet-capsule.jpg) includes the captured pointer and is supplied as generation provenance.
 
 [Download screenshots, illustrations, prompts, and post copy for Speaklet + Still](https://dhayanandbaskar.github.io/apps/assets/Mac-App-Media-Kit.zip). The media license does not publish or license Still’s app source.
+
+## Reproduce the native control preview
+
+Run from the repository root on a Retina Mac:
+
+```sh
+swift run --scratch-path build/web-preview-renderer WhisperAppearancePreview build/web-preview --web
+```
+
+This renders the production SwiftUI component with fixture states and audio levels, writes a lossless APNG intermediate, then encodes a compact H.264 clip and PNG poster. It does not record audio, access credentials, touch the clipboard, or ask for app permissions. The website caps the clip at 400 CSS pixels, providing enough source pixels for Retina displays. The older GIF remains available for legacy links.
