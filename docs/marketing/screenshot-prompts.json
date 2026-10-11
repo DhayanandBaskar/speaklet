@@ -1,0 +1,12 @@
+{
+  "tool": "Built-in image_gen",
+  "speaklet": {
+    "inputs": [
+      "docs/marketing/screenshot-kit/speaklet-settings.jpg",
+      "docs/marketing/screenshot-kit/speaklet-capsule.jpg"
+    ],
+    "prompt": "Use case: style-transfer. Asset type: landscape product illustration for a Mac app landing page and social post, 3:2 composition. Primary request: turn these actual screenshots of Speaklet into one polished editorial product illustration. Image 1 is the real Settings window and its blue waveform identity; Image 2 is the actual small idle capsule, with a capture cursor obscuring part of it. Use the real UI as the basis, preserving the Settings structure, the compact capsule silhouette, and recognizable controls. Scene: clean off-white paper background, charcoal linework, cobalt blue accents matching the Settings waveform, restrained soft shadows and subtle paper texture. Style: refined cut-paper and softly shaded isometric interface illustration, still recognizably a native Mac app. Composition: bold simple copy on the left; a lightly tilted illustration of the Settings panel on the right; the small graphite capsule floating in front, with its white waveform glyph derived from the real waveform identity. Keep the capsule short and small, with rounded ends, rather than stretching it into a toolbar. Text, verbatim: 'Speaklet' and 'Hold a key. Say it. Keep going.' Use clear editorial sans-serif lettering. Keep existing large UI labels accurate; small interface details may become quiet linework rather than invented copy. Remove the captured cursor and the purple macOS window-sharing indicator; these are capture overlays, not app features. Keep the API key field empty. Do not add new controls, transcripts, fake credentials, speed or accuracy claims, testimonials, a pricing claim, microphones outside the real product UI, people, computer hardware, extra logos, watermarks, neon gradients, or a dashboard. This is an illustration derived from the screenshots, not a claim to be a raw screenshot. Make it clean and publishable with ample breathing room.",
+    "output": "docs/marketing/screenshot-kit/speaklet-illustration.png"
+  },
+  "captureNotes": "Unchanged native JPEG captures from the installed Speaklet 1.0.6 build, with an empty API key field. Illustrations simplify the UI and remove capture overlays."
+}

@@ -79,3 +79,11 @@ https://dhayanandbaskar.github.io/apps/speaklet/
 - Download: https://github.com/DhayanandBaskar/speaklet/releases/latest/download/Speaklet.dmg
 - Source: https://github.com/DhayanandBaskar/speaklet
 - Release notes and checksum: https://github.com/DhayanandBaskar/speaklet/releases/latest
+
+## Screenshot-based artwork
+
+[Product illustration](screenshot-kit/speaklet-illustration.png) — 1536 × 1024, generated from the actual Settings and capsule captures using built-in image generation. [Exact prompt and references](screenshot-prompts.json). The UI is simplified and restyled; this is an illustration, not a raw screenshot.
+
+[Actual Settings screenshot](screenshot-kit/speaklet-settings.jpg) and [controls screenshot](screenshot-kit/speaklet-controls.jpg) — unchanged native captures from the installed 1.0.6 build, with the API key field empty. Captures can include the pointer and macOS sharing indicator. [Capsule reference](screenshot-kit/speaklet-capsule.jpg) includes the captured pointer and is supplied as generation provenance.
+
+[Download screenshots, illustrations, prompts, and post copy for Speaklet + Still](https://dhayanandbaskar.github.io/apps/assets/Mac-App-Media-Kit.zip). The media license does not publish or license Still’s app source.
