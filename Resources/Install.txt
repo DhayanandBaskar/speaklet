@@ -1,0 +1,73 @@
+WHISPER BUBBLE — PERSONAL EDITION
+
+Requires macOS 13 or later. Includes Apple silicon and Intel binaries.
+
+1. Drag Whisper Bubble.app to Applications, then open it from Applications.
+   If updating, quit the old app first and replace it. Your saved key and
+   preferences are retained. This is version 1.0.4, with a fixed 72 x 26 point
+   translucent pill. It stays that size while recording and on errors.
+   This personal build is ad-hoc signed and is not Apple-notarized. If macOS
+   blocks it, open System Settings > Privacy & Security and choose Open Anyway
+   for this app, then confirm Open. On versions that allow it, Finder's
+   right-click > Open also works. No Gatekeeper changes are required.
+   An ad-hoc signed update has a new signing hash. macOS may require you to
+   enable Accessibility for the updated copy and approve its access to your
+   existing Keychain key. Your stored key and preference data are not deleted.
+
+2. Open Settings from the waveform icon in the menu bar. Enter your own
+   OpenAI API key and click Save. The key is stored in macOS Keychain.
+   Get or manage a key at https://platform.openai.com/api-keys.
+   OpenAI API usage is billed separately from a ChatGPT subscription.
+
+3. In the app's Mac permissions section, enable Microphone, Accessibility,
+   and Input Monitoring. macOS may require you to quit and reopen the app.
+   The app checks permissions again automatically. Enable the copy of the
+   app in Applications, rather than the copy on this disk image.
+
+4. In macOS System Settings > Keyboard, set “Press Fn / Globe key to” to
+   “Do Nothing” if the built-in action opens emoji, switches input sources,
+   or starts Apple's Dictation. This is your choice; the app never changes
+   this setting. Alternatively, turn off Fn in the app and use a fallback
+   hold shortcut. The default is Control + Option + Space; choose an unused
+   alternative in Settings if another app already uses it.
+
+5. Focus a normal editable text field in any app. Hold Fn / Globe, speak,
+   then release to transcribe and insert. You can also click the bubble to
+   start, then click again to stop. The bubble preserves the other app's
+   focus. The waveform follows actual microphone input. Escape or the small
+   X cancels a recording or pending request. Recording stops at two minutes.
+
+Move the bubble using Settings > Bubble position. Use the menu to hide it.
+Adjust its transparency using Settings > Bubble background. Hover for
+status or right-click > Dictation status for details; errors no longer
+expand the bubble automatically.
+
+If you switch fields/apps, move the caret, or edit text during transcription,
+automatic insertion is cancelled. A transcript window offers Copy instead.
+Unsupported fields and denied Accessibility permission also use Copy.
+The explanation above the transcript stays visible. Use Insertion Settings
+to enable automatic insertion and guarded paste, and check Accessibility
+for the installed app. Quit and reopen after granting permission.
+Rich text cursor markers are supported. To check insertion without
+recording or using API credits, focus a disposable text field and right-click
+the bubble > Test Text Insertion. This inserts "Whisper Bubble test." at the
+cursor, replacing any selected text. Focus and secure-field guards still apply.
+Password/secure fields are excluded when macOS exposes them as secure.
+Terminals use clipboard paste instead of Accessibility text replacement.
+Enable clipboard paste in Settings. Terminal dictation stays on one line
+and does not press Return or submit a command. Multiline editors also prefer
+paste when enabled. The optional guarded paste
+temporarily uses the clipboard, then restores its previous contents after
+one second unless you copied something new. “Paste sent” means the paste
+shortcut was sent; check that the target app accepted it. The latest text
+is always available from the menu until cleared or the app quits.
+
+Audio is sent over HTTPS to OpenAI only after you finish dictating.
+Local temporary recordings are deleted after each completed/cancelled
+attempt. The app stores no audio history or transcript history and logs
+neither keys nor transcripts. A forced termination during recording can
+leave its private temporary recording folder in the macOS temporary area.
+Cancelling an already-sent upload cannot undo processing by OpenAI.
+
+No login item is installed. To remove the app, quit it, remove its saved
+key using Settings > Remove, and move it from Applications to the Trash.
