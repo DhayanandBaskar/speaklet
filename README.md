@@ -1,4 +1,4 @@
-# Whisper Bubble
+# Speaklet
 
 A native macOS dictation app with a small translucent floating control. Hold Fn/Globe, speak, and release to transcribe into the focused text field. You can also click the bubble to start and stop. The waveform follows the microphone's actual audio level.
 
@@ -8,23 +8,25 @@ The dark capsule rests at **42 × 18 points** and smoothly expands to **88 × 28
 
 Requires macOS 13 or later and an OpenAI API key with API billing enabled. ChatGPT subscriptions do not include API usage. This personal build uses a persistent local signing certificate and is not notarized.
 
+Previously named **Whisper Bubble**. Speaklet retains the same macOS identity, signing certificate, preferences, and saved API key.
+
 ## Build
 
 Apple's Command Line Tools provide the required Swift toolchain and macOS SDK. There are no third-party runtime dependencies. OpenSSL and Python 3 are used for the one-time local signing setup. Setup reuses an existing certificate instead of creating a new identity on each build.
 
 ```sh
-git clone git@github.com:DhayanandBaskar/whisper-bubble.git
-cd whisper-bubble
+git clone git@github.com:DhayanandBaskar/speaklet.git
+cd speaklet
 python3 scripts/setup-signing.py # one-time local signing identity
 bash scripts/test.sh
 python3 scripts/check-signing.py
 bash scripts/build.sh
 ```
 
-Quit Whisper Bubble before building an update. The script compiles Apple silicon and Intel binaries, signs and verifies the universal app, and creates a compressed installer. Every build replaces the same three outputs:
+Quit Speaklet before building an update. The script compiles Apple silicon and Intel binaries, signs and verifies the universal app, and creates a compressed installer. Every build replaces the same three outputs:
 
-- `build/dist/Whisper Bubble.app`
-- `build/dist/Whisper-Bubble.dmg`
+- `build/dist/Speaklet.app`
+- `build/dist/Speaklet.dmg`
 - `build/dist/SHA256SUMS.txt`
 
 Temporary packaging copies are removed automatically. Generated files are excluded from Git.
@@ -32,14 +34,14 @@ Temporary packaging copies are removed automatically. Generated files are exclud
 If your Mac has separate work and personal SSH profiles, clone this repository with the personal alias instead:
 
 ```sh
-git clone git@github.com-personal:DhayanandBaskar/whisper-bubble.git
+git clone git@github.com-personal:DhayanandBaskar/speaklet.git
 ```
 
 ## Install and use
 
-The current installer and checksum are available in the [latest GitHub release](https://github.com/DhayanandBaskar/whisper-bubble/releases/latest). Sign in with the personal account that owns this private repository.
+The current installer and checksum are available in the [latest GitHub release](https://github.com/DhayanandBaskar/speaklet/releases/latest). Sign in with the personal account that owns this private repository.
 
-1. Open `build/dist/Whisper-Bubble.dmg`, drag **Whisper Bubble.app** into **Applications**, and launch that copy. Quit and replace the existing app when updating. Keep one installed copy.
+1. Open `build/dist/Speaklet.dmg`, drag **Speaklet.app** into **Applications**, and launch that copy. Quit and replace the existing app when updating. When upgrading from Whisper Bubble, rename the existing Applications copy to **Speaklet.app** before replacing it. Keep one installed copy.
 2. If macOS blocks this personal build, use **System Settings → Privacy & Security → Open Anyway**. The first transition from an old ad-hoc build to the persistent certificate requires a final approval of the new identity. Later builds reuse the same certificate and designated requirement. Saved preferences and the API key are retained.
 3. Open **Settings** from the bubble's right-click menu or the waveform menu-bar icon. Save your OpenAI API key; it is stored in macOS Keychain.
 4. Enable **Microphone**, **Accessibility**, and **Input Monitoring** using the app's permission guidance. Enable the installed copy, then quit and reopen if macOS requests it.
@@ -47,9 +49,9 @@ The current installer and checksum are available in the [latest GitHub release](
 
 The bubble preserves the other app's focus. Escape cancels recording or a pending request; recordings stop after two minutes. **Latest Transcript** and **Copy Latest Transcript** remain available until cleared or the app quits.
 
-Access is checked automatically every two seconds and whenever Settings opens. Input Monitoring permission and keyboard-listener availability are reported separately. If an old entry stays enabled while this installed copy reports no access, replace only the Whisper Bubble entry in Accessibility and Input Monitoring with `/Applications/Whisper Bubble.app`, then reopen the app. This is needed once when moving from the old ad-hoc identity to the persistent certificate.
+Access is checked automatically every two seconds and whenever Settings opens. Input Monitoring permission and keyboard-listener availability are reported separately. If an old entry stays enabled while this installed copy reports no access, replace only the Speaklet entry in Accessibility and Input Monitoring with `/Applications/Speaklet.app`, then reopen the app. This is needed once when moving from the old ad-hoc identity to the persistent certificate.
 
-To check insertion without recording or API usage, focus a disposable text field and choose **Test Text Insertion** from the bubble's right-click menu. This inserts `Whisper Bubble test.` and replaces any selected text.
+To check insertion without recording or API usage, focus a disposable text field and choose **Test Text Insertion** from the bubble's right-click menu. This inserts `Speaklet test.` and replaces any selected text.
 
 ## Text insertion
 
@@ -65,6 +67,7 @@ Paste rechecks the captured field and restores the previous clipboard after one 
 
 - The API key is kept in Keychain, never in source or preferences. Startup and Settings check only its metadata with authentication UI disabled. The first dictation reads the secret; subsequent use reuses it in memory until the app quits. Successful replacement/removal updates that cache; denied reads remain retryable.
 - A persistent local signing identity binds this app to its certificate and identifier instead of a changing binary hash. The private signing key stays in the login Keychain and is never committed or uploaded. Setup allows the Apple codesign tool to use it; it does not change system trust. Builds fail rather than silently falling back to ad-hoc signing. [Apple explains designated requirements and local certificates](https://developer.apple.com/library/archive/technotes/tn2206/).
+- The legacy bundle identifier `local.whisperbubble.app`, Keychain service, and signing certificate name are intentionally retained for update continuity. The app, installer, and repository use the Speaklet name.
 - Completed recordings are sent over HTTPS to OpenAI's transcription endpoint. The default model is `gpt-4o-mini-transcribe`; Settings also offers `gpt-4o-transcribe` and `whisper-1`.
 - Redirects are refused, network sessions are ephemeral, and keys, audio, API responses, and transcripts are not logged.
 - Private temporary recordings are deleted after completion or cancellation. Forced termination can leave a private temporary folder for macOS to clean up. Transcripts are kept only in memory.

@@ -1,10 +1,12 @@
-WHISPER BUBBLE — PERSONAL EDITION
+SPEAKLET — PERSONAL EDITION
 
 Requires macOS 13 or later. Includes Apple silicon and Intel binaries.
 
-1. Drag Whisper Bubble.app to Applications, then open it from Applications.
-   If updating, quit the old app first and replace it. Your saved key and
-   preferences are retained. This is version 1.0.5, with a dark 42 x 18 point
+1. Drag Speaklet.app to Applications, then open it from Applications.
+   If updating, quit the old app first and replace it. If upgrading from
+   Whisper Bubble, rename the Applications copy to Speaklet.app first,
+   then replace it. Keep one installed copy. Your saved key and
+   preferences are retained. This is version 1.0.6, with a dark 42 x 18 point
    capsule that smoothly expands to 88 x 28 while recording. The thin rim,
    white microphone, and live waveform stay dark in both macOS themes.
    This personal build is locally certificate-signed and is not Apple-notarized. If macOS
@@ -53,7 +55,7 @@ to enable automatic insertion and guarded paste, and check Accessibility
 for the installed app. Quit and reopen after granting permission.
 Rich text cursor markers are supported. To check insertion without
 recording or using API credits, focus a disposable text field and right-click
-the bubble > Test Text Insertion. This inserts "Whisper Bubble test." at the
+the bubble > Test Text Insertion. This inserts "Speaklet test." at the
 cursor, replacing any selected text. Focus and secure-field guards still apply.
 Password/secure fields are excluded when macOS exposes them as secure.
 Terminals use clipboard paste instead of Accessibility text replacement.

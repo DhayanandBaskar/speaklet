@@ -1,8 +1,10 @@
 # Validation
 
-Current version: **1.0.5**, 11 October 2026.
+Current version: **Speaklet 1.0.6**, 11 October 2026.
 
 ## Automated checks
+
+The behavior-suite counts below are from version 1.0.5. Version 1.0.6 changes branding and packaging; both universal release compilation and the installer checks were run for the renamed app.
 
 - **38 core cases, 151 assertions, zero failures.**
 - **8 native Accessibility-value checks, zero failures.**
@@ -26,6 +28,7 @@ Build verification checks both arm64 and x86_64, the bundle plist, strict code s
 - The redesigned 1.0.5 control was launched and visually inspected. Startup and Settings opened without a secret-key prompt; Settings correctly reported the existing key using metadata alone. The app reported the old build’s privacy approvals as unavailable, matching the ad-hoc identity issue.
 - The final certificate-signed 1.0.5 app was installed and launched from `/Applications/Whisper Bubble.app`. Its signature and universal architectures were verified. Startup and Settings again opened without reading the saved secret. Microphone access was retained; initially, the installed app reported Accessibility and Input Monitoring unavailable while System Settings still showed old enabled entries. Both stale Whisper Bubble entries were removed and the Applications copy added using System Settings. The user completed macOS authentication; the app was quit and reopened. The running app then showed all three permissions granted, and its keyboard-listener failure notice was absent. The one-time migration is complete on this Mac.
 - The installed Settings view has no redundant Refresh permissions button. Permission checks run automatically every two seconds; a failed keyboard listener is no longer displayed as denied Input Monitoring.
+- Speaklet 1.0.6 was built for both architectures, and its app and DMG were verified. The renamed app's designated requirement exactly matches the installed Whisper Bubble 1.0.5 requirement and passes verification against it. The app is installed at `/Applications/Speaklet.app`; the previous installed copy was moved recoverably to Trash. On launch, Speaklet's Settings showed Microphone, Accessibility, and Input Monitoring granted, with the keyboard listener available, the saved-key metadata recognized, and the existing language, shortcut, position, and appearance settings retained. No new permission or saved-key prompt appeared during launch or Settings inspection.
 - The initial native app launch and Settings layout were inspected. Microphone, Accessibility, Input Monitoring, and automatic insertion were enabled in the prior running copy. No key or transcript content was read.
 - The consolidated 1.0.4 app was launched from the existing canonical path. The user approved its existing Keychain access and confirmed the bubble was visible; native inspection then confirmed its idle control.
 - Warp, ChatGPT, and macOS SecurityAgent UI inspection is blocked by the computer-use tool. Those applications were not inspected through another method. The attempted live Warp check could not proceed and remains manual.

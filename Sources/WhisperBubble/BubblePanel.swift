@@ -84,7 +84,7 @@ struct BubbleView: View {
                 Button("Settings…", action: controller.showSettings)
                 Button("Latest Transcript…", action: controller.showTranscript).disabled(controller.lastTranscript.isEmpty)
                 Button("Hide Bubble") { preferences.bubbleVisible = false }
-                Button("Quit Whisper Bubble") { NSApp.terminate(nil) }
+                Button("Quit Speaklet") { NSApp.terminate(nil) }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
     }

@@ -43,8 +43,8 @@ import WhisperCore
         refreshKey()
         bubble = BubblePanel(controller: self)
         statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.squareLength)
-        statusItem?.button?.image = NSImage(systemSymbolName: "waveform", accessibilityDescription: "Whisper Bubble")
-        statusItem?.button?.toolTip = "Whisper Bubble"
+        statusItem?.button?.image = NSImage(systemSymbolName: "waveform", accessibilityDescription: "Speaklet")
+        statusItem?.button?.toolTip = "Speaklet"
         statusItem?.button?.target = self
         statusItem?.button?.action = #selector(showMenu)
         audio.onMeter = { [weak self] level, elapsed in
@@ -140,7 +140,7 @@ import WhisperCore
             do { try await Task.sleep(nanoseconds: 350_000_000) } catch { return }
             guard let self, self.machine.sessionID == id, !Task.isCancelled else { return }
             self.requestTask = nil
-            self.completeInsertion("Whisper Bubble test.", sessionID: id)
+            self.completeInsertion("Speaklet test.", sessionID: id)
         }
     }
 
@@ -198,7 +198,7 @@ import WhisperCore
             self.requestTask = nil
             self.refreshPermissions()
             guard granted else {
-                self.fail(id, "Microphone access is required. Enable Whisper Bubble in macOS Privacy & Security → Microphone.")
+                self.fail(id, "Microphone access is required. Enable Speaklet in macOS Privacy & Security → Microphone.")
                 return
             }
             do {
@@ -311,7 +311,7 @@ import WhisperCore
     private func setNotice(_ message: String, error: Bool) {
         notice = message
         noticeIsError = error
-        statusItem?.button?.toolTip = "Whisper Bubble · " + message
+        statusItem?.button?.toolTip = "Speaklet · " + message
         if !error {
             DispatchQueue.main.asyncAfter(deadline: .now() + 5) { [weak self] in
                 if self?.notice == message { self?.dismissNotice() }
@@ -374,7 +374,7 @@ import WhisperCore
         if settingsWindow == nil {
             let window = NSWindow(contentRect: NSRect(x: 0, y: 0, width: 570, height: 660),
                                   styleMask: [.titled, .closable, .miniaturizable], backing: .buffered, defer: false)
-            window.title = "Whisper Bubble Settings"
+            window.title = "Speaklet Settings"
             window.isReleasedWhenClosed = false
             window.contentView = NSHostingView(rootView: SettingsView(controller: self, preferences: preferences))
             window.center()
@@ -423,7 +423,7 @@ import WhisperCore
             menu.addItem(item)
         }
         menu.autoenablesItems = false
-        item("Whisper Bubble", nil, enabled: false)
+        item("Speaklet", nil, enabled: false)
         if !notice.isEmpty { item(String(notice.prefix(80)), nil, enabled: false) }
         if !notice.isEmpty { item("Dictation Status…", #selector(feedbackFromMenu)) }
         menu.addItem(.separator())
@@ -435,7 +435,7 @@ import WhisperCore
         item(preferences.bubbleVisible ? "Hide Bubble" : "Show Bubble", #selector(toggleBubble))
         item("Settings…", #selector(settingsFromMenu), key: ",")
         menu.addItem(.separator())
-        item("Quit Whisper Bubble", #selector(quit), key: "q")
+        item("Quit Speaklet", #selector(quit), key: "q")
         if let button = statusItem?.button { menu.popUp(positioning: nil, at: NSPoint(x: 0, y: button.bounds.minY), in: button) }
     }
     @objc private func toggleFromMenu() { bubbleClicked() }

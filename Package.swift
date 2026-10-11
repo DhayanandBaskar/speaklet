@@ -2,7 +2,7 @@
 import PackageDescription
 
 let package = Package(
-    name: "WhisperBubble",
+    name: "Speaklet",
     platforms: [.macOS(.v13)],
     products: [.executable(name: "WhisperBubble", targets: ["WhisperBubble"])],
     targets: [

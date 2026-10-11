@@ -11,7 +11,7 @@ struct SettingsView: View {
                 Image(systemName: "waveform").font(.system(size: 27, weight: .medium)).foregroundStyle(Color.accentColor)
                     .frame(width: 54, height: 54).background(.quaternary, in: RoundedRectangle(cornerRadius: 16))
                 VStack(alignment: .leading, spacing: 4) {
-                    Text("Whisper Bubble").font(.system(size: 23, weight: .semibold))
+                    Text("Speaklet").font(.system(size: 23, weight: .semibold))
                     Text("Your voice, wherever you write.").font(.system(size: 12)).foregroundStyle(.secondary)
                 }
                 Spacer()
@@ -97,17 +97,17 @@ struct SettingsView: View {
                         permission("Accessibility", detail: "Insert text into the focused field", granted: controller.accessibilityGranted, action: controller.requestAccessibility)
                         permission("Input Monitoring", detail: "Detect Fn and the fallback shortcut globally", granted: controller.keyboardGranted, action: controller.requestKeyboard)
                         if controller.keyboardGranted && !controller.shortcutRunning {
-                            Text("Input Monitoring is allowed, but the keyboard listener could not start. Quit and reopen Whisper Bubble. You can still click the bubble to dictate.")
+                            Text("Input Monitoring is allowed, but the keyboard listener could not start. Quit and reopen Speaklet. You can still click the bubble to dictate.")
                                 .font(.system(size: 11)).foregroundStyle(.orange).fixedSize(horizontal: false, vertical: true)
                         }
-                        Text("Access is checked automatically. If System Settings shows access is enabled but this copy cannot use it, quit and reopen Whisper Bubble. An entry from an older install may need to be replaced once.")
+                        Text("Access is checked automatically. If System Settings shows access is enabled but this copy cannot use it, quit and reopen Speaklet. An entry from an older install may need to be replaced once.")
                             .font(.system(size: 11)).foregroundStyle(.secondary).fixedSize(horizontal: false, vertical: true)
                     }
                 }.padding(24)
             }
             Divider()
             HStack {
-                Text("Personal edition · 1.0.5").font(.system(size: 10)).foregroundStyle(.tertiary)
+                Text("Personal edition · 1.0.6").font(.system(size: 10)).foregroundStyle(.tertiary)
                 Spacer()
                 Text("Click to start / stop · Esc to cancel · 2 min limit").font(.system(size: 10)).foregroundStyle(.secondary)
             }.padding(.horizontal, 24).padding(.vertical, 12)
